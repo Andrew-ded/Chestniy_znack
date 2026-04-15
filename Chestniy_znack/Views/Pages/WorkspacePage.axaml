@@ -1,0 +1,103 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:Chestniy_znack.ViewModels"
+             x:Class="Chestniy_znack.Views.Pages.WorkspacePage"
+             x:DataType="vm:WorkspacePageViewModel">
+  <Grid Width="980"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Stretch"
+        RowDefinitions="Auto,Auto,Auto,*,Auto"
+        RowSpacing="16">
+    <StackPanel Spacing="6">
+      <TextBlock Text="Заполнение документа" Classes="page-title" />
+      <TextBlock Text="Сначала отсканируйте второй штрихкод, затем добавляйте КИЗ по одному сканированию."
+                 Classes="section-text"
+                 TextWrapping="Wrap" />
+    </StackPanel>
+
+    <Border Grid.Row="1" Classes="page-card">
+      <Grid ColumnDefinitions="Auto,*" ColumnSpacing="14">
+        <TextBlock Text="Первый ШК" Classes="field-label" VerticalAlignment="Center" />
+        <TextBlock Grid.Column="1"
+                   Text="{Binding DocumentBarcode}"
+                   Foreground="{DynamicResource AppTitleBrush}"
+                   FontSize="18"
+                   FontWeight="SemiBold"
+                   TextWrapping="Wrap" />
+      </Grid>
+    </Border>
+
+    <Grid Grid.Row="2" ColumnDefinitions="*,*" ColumnSpacing="16">
+      <Border Grid.Column="0" Classes="page-card">
+        <StackPanel Spacing="10">
+          <TextBlock Text="Второй ШК" Classes="field-label" />
+          <TextBox x:Name="ProductBarcodeTextBox"
+                   Text="{Binding ProductBarcode}"
+                   IsReadOnly="{Binding IsProductBarcodeLocked}"
+                   Watermark="Сканируйте второй штрихкод"
+                   KeyDown="ProductBarcodeTextBox_OnKeyDown" />
+          <TextBlock Text="После сканирования Enter обработается автоматически."
+                     Classes="section-text" />
+        </StackPanel>
+      </Border>
+
+      <Border Grid.Column="1" Classes="page-card">
+        <StackPanel Spacing="10">
+          <TextBlock Text="Массовое сканирование КИЗ" Classes="field-label" />
+          <TextBox x:Name="KizTextBox"
+                   Text="{Binding CurrentKiz}"
+                   IsEnabled="{Binding CanScanKiz}"
+                   Watermark="Сканируйте КИЗ и подтверждайте Enter"
+                   KeyDown="KizTextBox_OnKeyDown" />
+          <TextBlock Text="{Binding KizCount, StringFormat='Отсканировано КИЗ: {0}'}"
+                     Foreground="{DynamicResource AppTitleBrush}"
+                     FontSize="18"
+                     FontWeight="SemiBold" />
+        </StackPanel>
+      </Border>
+    </Grid>
+
+    <Border Grid.Row="3" Classes="page-card">
+      <Grid RowDefinitions="Auto,*" RowSpacing="10">
+        <TextBlock Text="Список КИЗ" Classes="field-label" />
+
+        <Border Grid.Row="1"
+                Background="{DynamicResource AppPanelInnerBackgroundBrush}"
+                CornerRadius="12"
+                Padding="12"
+                MinHeight="220">
+          <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding KizCodes}">
+              <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                  <Border Background="{DynamicResource AppItemBackgroundBrush}"
+                          CornerRadius="10"
+                          Margin="0,0,0,8"
+                          Padding="12,10">
+                    <TextBlock Text="{Binding .}"
+                               Foreground="{DynamicResource AppTitleBrush}"
+                               TextWrapping="Wrap" />
+                  </Border>
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ItemsControl>
+          </ScrollViewer>
+        </Border>
+      </Grid>
+    </Border>
+
+    <Grid Grid.Row="4" ColumnDefinitions="*,Auto" ColumnSpacing="12" Margin="0,0,0,6">
+      <TextBlock Text="{Binding StatusMessage}"
+                 Classes="section-text"
+                 VerticalAlignment="Center"
+                 TextWrapping="Wrap" />
+
+      <Button Grid.Column="1"
+              Classes="primary-button"
+              Command="{Binding SaveCommand}"
+              Content="Сохранить"
+              HorizontalAlignment="Right"
+              IsVisible="{Binding CanSave}" />
+    </Grid>
+  </Grid>
+</UserControl>

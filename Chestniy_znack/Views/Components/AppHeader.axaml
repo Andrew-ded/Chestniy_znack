@@ -1,0 +1,44 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:Chestniy_znack.ViewModels"
+             x:Class="Chestniy_znack.Views.Components.AppHeader"
+             x:DataType="vm:MainWindowViewModel">
+  <Border Padding="12,10,12,8"
+          PointerPressed="Header_OnPointerPressed">
+    <Grid ColumnDefinitions="Auto,Auto,*,Auto" ColumnSpacing="8">
+      <Button Grid.Column="0"
+              Content="☰"
+              Command="{Binding ToggleSidebarCommand}"
+              Classes="window-button" />
+
+      <Button Grid.Column="1"
+              Content="Назад"
+              IsVisible="{Binding ShowBackButton}"
+              Command="{Binding GoToStartPageCommand}"
+              Classes="back-button" />
+
+      <TextBlock Grid.Column="2"
+                 Text="{Binding SectionTitle}"
+                 HorizontalAlignment="Center"
+                 VerticalAlignment="Center"
+                 Foreground="{DynamicResource AppBodyBrush}"
+                 FontSize="16" />
+
+      <StackPanel Grid.Column="3"
+                  Orientation="Horizontal"
+                  Spacing="8"
+                  VerticalAlignment="Center"
+                  HorizontalAlignment="Right">
+        <TextBlock Text="{Binding UserName}"
+                   Foreground="{DynamicResource AppBodyBrush}"
+                   FontWeight="SemiBold"
+                   FontSize="12"
+                   VerticalAlignment="Center"
+                   Margin="0,0,4,0" />
+        <Button Classes="window-button" Click="MinimizeButton_OnClick" Content="-" />
+        <Button Classes="window-button" Click="MaximizeButton_OnClick" Content="□" />
+        <Button Classes="window-button close" Click="CloseButton_OnClick" Content="×" />
+      </StackPanel>
+    </Grid>
+  </Border>
+</UserControl>

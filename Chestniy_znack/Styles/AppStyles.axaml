@@ -1,0 +1,104 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Style Selector="TextBlock.page-title">
+    <Setter Property="FontSize" Value="34" />
+    <Setter Property="FontWeight" Value="Bold" />
+    <Setter Property="Foreground" Value="{DynamicResource AppTitleBrush}" />
+  </Style>
+
+  <Style Selector="TextBlock.section-text">
+    <Setter Property="Foreground" Value="{DynamicResource AppBodyBrush}" />
+    <Setter Property="FontSize" Value="15" />
+  </Style>
+
+  <Style Selector="TextBlock.field-label">
+    <Setter Property="Foreground" Value="{DynamicResource AppLabelBrush}" />
+    <Setter Property="FontSize" Value="15" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+  </Style>
+
+  <Style Selector="TextBox">
+    <Setter Property="CornerRadius" Value="12" />
+    <Setter Property="Background" Value="{DynamicResource AppTextboxBackgroundBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource AppInputBorderBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Foreground" Value="{DynamicResource AppTextboxForegroundBrush}" />
+    <Setter Property="Padding" Value="10,8" />
+    <Setter Property="FontSize" Value="16" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+  </Style>
+
+  <Style Selector="Button">
+    <Setter Property="CornerRadius" Value="12" />
+    <Setter Property="Padding" Value="14,10" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="BorderThickness" Value="0" />
+  </Style>
+
+  <Style Selector="Button.primary-button">
+    <Setter Property="Background" Value="{DynamicResource AppAccentBrush}" />
+    <Setter Property="Foreground" Value="White" />
+  </Style>
+
+  <Style Selector="Button.primary-button:pointerover">
+    <Setter Property="Background" Value="{DynamicResource AppAccentHoverBrush}" />
+  </Style>
+
+  <Style Selector="Button.secondary-button">
+    <Setter Property="Background" Value="{DynamicResource AppButtonSecondaryBackgroundBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource AppWindowButtonForegroundBrush}" />
+  </Style>
+
+  <Style Selector="Button.secondary-button:pointerover">
+    <Setter Property="Background" Value="{DynamicResource AppButtonSecondaryHoverBackgroundBrush}" />
+  </Style>
+
+  <Style Selector="Button.window-button">
+    <Setter Property="Width" Value="36" />
+    <Setter Property="Height" Value="28" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="CornerRadius" Value="6" />
+    <Setter Property="Background" Value="{DynamicResource AppWindowButtonBackgroundBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource AppWindowButtonForegroundBrush}" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+  </Style>
+
+  <Style Selector="Button.window-button:pointerover">
+    <Setter Property="Background" Value="{DynamicResource AppWindowButtonHoverBackgroundBrush}" />
+  </Style>
+
+  <Style Selector="Button.window-button.close:pointerover">
+    <Setter Property="Background" Value="{DynamicResource AppCloseHoverBrush}" />
+  </Style>
+
+  <Style Selector="Button.back-button">
+    <Setter Property="Background" Value="{DynamicResource AppWindowButtonBackgroundBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource AppWindowButtonForegroundBrush}" />
+    <Setter Property="Padding" Value="10,6" />
+    <Setter Property="FontSize" Value="13" />
+  </Style>
+
+  <Style Selector="Button.nav-button">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource AppTitleBrush}" />
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    <Setter Property="Padding" Value="12" />
+  </Style>
+
+  <Style Selector="Button.nav-button:pointerover">
+    <Setter Property="Background" Value="{DynamicResource AppNavHoverBrush}" />
+  </Style>
+
+  <Style Selector="Border.page-card">
+    <Setter Property="Background" Value="{DynamicResource AppPanelBackgroundBrush}" />
+    <Setter Property="CornerRadius" Value="14" />
+    <Setter Property="Padding" Value="16" />
+  </Style>
+
+  <Style Selector="Border.input-card">
+    <Setter Property="Background" Value="{DynamicResource AppPanelAltBackgroundBrush}" />
+    <Setter Property="CornerRadius" Value="14" />
+    <Setter Property="Padding" Value="16" />
+  </Style>
+</Styles>

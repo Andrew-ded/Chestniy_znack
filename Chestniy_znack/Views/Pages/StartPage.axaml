@@ -1,0 +1,35 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:Chestniy_znack.ViewModels"
+             x:Class="Chestniy_znack.Views.Pages.StartPage"
+             x:DataType="vm:StartPageViewModel">
+  <Grid>
+    <Border Classes="page-card"
+            Width="720"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Padding="28">
+      <StackPanel Spacing="18">
+        <StackPanel Spacing="8">
+          <TextBlock Text="{Binding WelcomeTitle}" Classes="page-title" />
+          <TextBlock Text="{Binding Description}"
+                     Classes="section-text"
+                     TextWrapping="Wrap" />
+        </StackPanel>
+
+        <TextBox x:Name="DocumentBarcodeTextBox"
+                 Text="{Binding DocumentBarcode}"
+                 MinHeight="64"
+                 FontSize="22"
+                 Padding="18,14"
+                 Watermark="ШК упаковочного листа "
+                 KeyDown="DocumentBarcodeTextBox_OnKeyDown" />
+
+        <Button HorizontalAlignment="Right"
+                Classes="primary-button"
+                Command="{Binding StartCommand}"
+                Content="Начать" />
+      </StackPanel>
+    </Border>
+  </Grid>
+</UserControl>
