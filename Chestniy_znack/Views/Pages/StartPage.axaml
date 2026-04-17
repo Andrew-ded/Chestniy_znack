@@ -22,7 +22,7 @@
                  MinHeight="64"
                  FontSize="22"
                  Padding="18,14"
-                 Watermark="ШК упаковочного листа "
+                 Watermark="Приказ резервирования"
                  KeyDown="DocumentBarcodeTextBox_OnKeyDown" />
 
         <Button HorizontalAlignment="Right"

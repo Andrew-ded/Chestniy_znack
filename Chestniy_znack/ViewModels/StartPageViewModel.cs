@@ -8,10 +8,10 @@ public partial class StartPageViewModel : ViewModelBase
 {
     [ObservableProperty] private string _documentBarcode = string.Empty;
 
-    public string WelcomeTitle => "Сканирование упаковочного листа";
+    public string WelcomeTitle => "Сканирование приказа ";
 
     public string Description =>
-        "Отсканируйте штрихкод документа и нажмите \"Начать\". Если сканер завершает ввод клавишей Enter, переход выполнится автоматически.";
+        "Отсканируйте приказ резервирования и нажмите \"Начать\". Если сканер завершает ввод клавишей Enter, переход выполнится автоматически.";
 
     public event EventHandler<string>? StartRequested;
 

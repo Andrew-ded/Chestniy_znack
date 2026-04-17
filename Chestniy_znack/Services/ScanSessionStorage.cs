@@ -1,6 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
+using System.Text.Encodings.Web;
 using System.Text.Json;
 using Chestniy_znack.Models;
 
@@ -10,28 +10,34 @@ public static class ScanSessionStorage
 {
     private static readonly JsonSerializerOptions JsonOptions = new()
     {
-        WriteIndented = true
+        WriteIndented = true,
+        Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
     };
 
-    private static string FilePath => Path.Combine(AppContext.BaseDirectory, "scan-sessions.json");
+    // TODO: при необходимости поменяйте путь сохранения здесь.
+    private const string StorageDirectory = @"C:\Users\andre\RiderProjects\Chestniy_znack\Chestniy_znack\SavedJson";
 
-    public static void Save(ScanSessionRecord record)
+    public static string Save(ScanSessionRecord record)
     {
-        List<ScanSessionRecord> records;
+        Directory.CreateDirectory(StorageDirectory);
 
-        if (File.Exists(FilePath))
+        var safeFileName = SanitizeFileName(record.OrderBarcode);
+        var filePath = Path.Combine(StorageDirectory, $"{safeFileName}.json");
+        var output = JsonSerializer.Serialize(record, JsonOptions);
+
+        File.WriteAllText(filePath, output);
+        return filePath;
+    }
+
+    private static string SanitizeFileName(string value)
+    {
+        var sanitized = value.Trim().Replace('/', '_');
+
+        foreach (var invalidChar in Path.GetInvalidFileNameChars())
         {
-            var json = File.ReadAllText(FilePath);
-            records = JsonSerializer.Deserialize<List<ScanSessionRecord>>(json, JsonOptions) ?? [];
-        }
-        else
-        {
-            records = [];
+            sanitized = sanitized.Replace(invalidChar, '_');
         }
 
-        records.Add(record);
-
-        var output = JsonSerializer.Serialize(records, JsonOptions);
-        File.WriteAllText(FilePath, output);
+        return string.IsNullOrWhiteSpace(sanitized) ? $"scan_{DateTime.Now:yyyyMMdd_HHmmss}" : sanitized;
     }
 }

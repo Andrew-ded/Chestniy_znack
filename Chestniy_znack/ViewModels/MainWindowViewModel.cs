@@ -8,11 +8,11 @@ namespace Chestniy_znack.ViewModels;
 
 public partial class MainWindowViewModel : ViewModelBase
 {
-    [ObservableProperty] private bool _isSidebarVisible = true;
+    [ObservableProperty] private bool _isSidebarVisible = false;
     [ObservableProperty] private bool _isStartPage = true;
     [ObservableProperty] private bool _isWorkspacePage;
     [ObservableProperty] private bool _isBindingsPage;
-    [ObservableProperty] private bool _isLightTheme;
+    [ObservableProperty] private bool _isLightTheme = true;
 
     public MainWindowViewModel()
     {
@@ -20,6 +20,11 @@ public partial class MainWindowViewModel : ViewModelBase
         StartPageViewModel = new StartPageViewModel();
         WorkspacePageViewModel = new WorkspacePageViewModel();
         BindingsPageViewModel = new BindingsPageViewModel();
+
+        if (Application.Current is not null)
+        {
+            Application.Current.RequestedThemeVariant = ThemeVariant.Light;
+        }
 
         StartPageViewModel.StartRequested += (_, barcode) =>
         {

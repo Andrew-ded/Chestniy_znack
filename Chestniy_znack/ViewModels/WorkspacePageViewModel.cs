@@ -61,7 +61,7 @@ public partial class WorkspacePageViewModel : ViewModelBase
 
         ProductBarcode = barcode;
         IsProductBarcodeLocked = true;
-        StatusMessage = "Второй ШК сохранен. Можно сканировать КИЗ.";
+        StatusMessage = "Номенклатура сохранена. Можно сканировать КИЗ.";
     }
 
     [RelayCommand]
@@ -69,7 +69,7 @@ public partial class WorkspacePageViewModel : ViewModelBase
     {
         if (!CanScanKiz)
         {
-            StatusMessage = "Сначала отсканируйте второй ШК.";
+            StatusMessage = "Сначала отсканируйте номенклатуру.";
             return;
         }
 
@@ -99,15 +99,21 @@ public partial class WorkspacePageViewModel : ViewModelBase
         var record = new ScanSessionRecord
         {
             SavedAt = DateTime.Now,
-            DocumentBarcode = DocumentBarcode,
-            ProductBarcode = ProductBarcode,
-            KizCodes = [.. KizCodes]
+            OrderBarcode = DocumentBarcode,
+            Products =
+            [
+                new ScanSessionProductRecord
+                {
+                    GazIdKISU = ProductBarcode,
+                    KizCodes = [.. KizCodes]
+                }
+            ]
         };
 
         try
         {
-            ScanSessionStorage.Save(record);
-            StatusMessage = "Данные сохранены в scan-sessions.json.";
+            var filePath = ScanSessionStorage.Save(record);
+            StatusMessage = $"Данные сохранены: {filePath}";
             SessionSaved?.Invoke(this, EventArgs.Empty);
         }
         catch (Exception ex)
@@ -118,7 +124,7 @@ public partial class WorkspacePageViewModel : ViewModelBase
 
     public void BeginSession(string documentBarcode)
     {
-        DocumentBarcode = documentBarcode;
+        DocumentBarcode = documentBarcode.Trim();
         ProductBarcode = string.Empty;
         CurrentKiz = string.Empty;
         StatusMessage = string.Empty;
