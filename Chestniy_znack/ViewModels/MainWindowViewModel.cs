@@ -11,7 +11,6 @@ public partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty] private bool _isSidebarVisible = false;
     [ObservableProperty] private bool _isStartPage = true;
     [ObservableProperty] private bool _isWorkspacePage;
-    [ObservableProperty] private bool _isBindingsPage;
     [ObservableProperty] private bool _isLightTheme = true;
 
     public MainWindowViewModel()
@@ -19,7 +18,6 @@ public partial class MainWindowViewModel : ViewModelBase
         UserName = Environment.UserName;
         StartPageViewModel = new StartPageViewModel();
         WorkspacePageViewModel = new WorkspacePageViewModel();
-        BindingsPageViewModel = new BindingsPageViewModel();
 
         if (Application.Current is not null)
         {
@@ -45,19 +43,13 @@ public partial class MainWindowViewModel : ViewModelBase
 
     public bool ShowBackButton => !IsStartPage;
 
-    public string SectionTitle => IsStartPage
-        ? "Старт"
-        : IsWorkspacePage
-            ? "Заполнение"
-            : "Служебная страница";
+    public string SectionTitle => IsStartPage ? "Старт" : "Заполнение";
 
     public string ThemeButtonText => IsLightTheme ? "Темная тема" : "Светлая тема";
 
     public StartPageViewModel StartPageViewModel { get; }
 
     public WorkspacePageViewModel WorkspacePageViewModel { get; }
-
-    public BindingsPageViewModel BindingsPageViewModel { get; }
 
     partial void OnIsSidebarVisibleChanged(bool value) => OnPropertyChanged(nameof(SidebarWidth));
 
@@ -68,12 +60,6 @@ public partial class MainWindowViewModel : ViewModelBase
     }
 
     partial void OnIsWorkspacePageChanged(bool value)
-    {
-        OnPropertyChanged(nameof(ShowBackButton));
-        OnPropertyChanged(nameof(SectionTitle));
-    }
-
-    partial void OnIsBindingsPageChanged(bool value)
     {
         OnPropertyChanged(nameof(ShowBackButton));
         OnPropertyChanged(nameof(SectionTitle));
@@ -96,7 +82,6 @@ public partial class MainWindowViewModel : ViewModelBase
     {
         IsStartPage = true;
         IsWorkspacePage = false;
-        IsBindingsPage = false;
     }
 
     [RelayCommand]
@@ -104,7 +89,6 @@ public partial class MainWindowViewModel : ViewModelBase
     {
         IsStartPage = false;
         IsWorkspacePage = true;
-        IsBindingsPage = false;
     }
 
     [RelayCommand]

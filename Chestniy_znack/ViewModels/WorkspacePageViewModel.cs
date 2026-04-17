@@ -91,6 +91,24 @@ public partial class WorkspacePageViewModel : ViewModelBase
         StatusMessage = $"Отсканировано КИЗ: {KizCodes.Count}";
     }
 
+    [RelayCommand]
+    private void RemoveKiz(string? kiz)
+    {
+        if (string.IsNullOrWhiteSpace(kiz))
+        {
+            return;
+        }
+
+        if (!KizCodes.Remove(kiz))
+        {
+            return;
+        }
+
+        StatusMessage = KizCodes.Count == 0
+            ? "Список КИЗ пуст."
+            : $"Отсканировано КИЗ: {KizCodes.Count}";
+    }
+
     [RelayCommand(CanExecute = nameof(CanSave))]
     private void Save()
     {
